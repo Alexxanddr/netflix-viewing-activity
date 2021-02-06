@@ -48,18 +48,14 @@ class Netflix:
         self.context = self.get_js_property(page, 'reactContext')
 
     def get_profiles(self):
-        return self.context['models']['profilesModel']['data']['profiles']
-
-    def get_active_profile(self):
-        return self.context['models']['profilesModel']['data']['active']
+        return self.context['models']['userInfo']['data']
 
     def switch_profile(self, guid):
         self.session.get('https://www.netflix.com/SwitchProfile?tkn=%s' % guid, headers=self.headers)
 
     def get_viewing_activity(self):
         serverDefs = self.context['models']['serverDefs']['data']
-        url = '/'.join([serverDefs['SHAKTI_API_ROOT'], serverDefs['BUILD_IDENTIFIER'], 'viewingactivity'])
-
+        url = '/'.join([serverDefs['API_ROOT'], 'shakti', serverDefs['BUILD_IDENTIFIER'], 'viewingactivity'])
         page = 0
         viewing_activity = []
 
@@ -70,7 +66,9 @@ class Netflix:
                 '_': int(time.time() * 1000),
                 'authURL': self.authURL
             }
+            print(parameters)
             res = self.session.get(url, params=parameters).json()
+            print(res['viewedItems'])
 
             if len(res['viewedItems']) > 0:
                 viewing_activity.extend(res['viewedItems'])
@@ -81,10 +79,11 @@ class Netflix:
         return viewing_activity
 
 
-netflix = Netflix('email', 'password')
+netflix = Netflix('USERNAME', 'PASSWORD')
 profiles = netflix.get_profiles()
 
-for profile in profiles:
-    netflix.switch_profile(profile['guid'])
-    with open('%s.json' % profile['firstName'], 'w') as file:
-            json.dump(netflix.get_viewing_activity(), file)
+netflix.switch_profile('USER_ID')
+with open('%s.json' % 'prof', 'w') as file:
+        json.dump(netflix.get_viewing_activity(), file)
+
+
