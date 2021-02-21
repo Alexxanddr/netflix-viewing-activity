@@ -8,6 +8,6 @@ For retrieve the json of the history viewing activity:
 
 - Retrieve netflix user id (necessary in multiaccount), this field is located in the html page with **data-profile-guid** property
 
-- Add in the environment variable the NETFLIX-EMAIL, NETFLIX-PASSWORD and NETFLIX-USER_ID
+- Add in the environment variable: `**NETFLIX-EMAIL**, **NETFLIX-PASSWORD** and **NETFLIX-USER_ID**`
 
-- python3 netflix.py
+- execute python3 netflix.py
