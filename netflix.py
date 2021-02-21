@@ -7,6 +7,7 @@ import codecs
 import json
 import time
 import re
+import os
 
 class Netflix:
     headers = {'User-Agent': 'Mozilla/5.0'}
@@ -79,10 +80,10 @@ class Netflix:
         return viewing_activity
 
 
-netflix = Netflix('USERNAME', 'PASSWORD')
+netflix = Netflix(os.environ['NETFLIX-EMAIL'], os.environ['NETFLIX-PASSWORD'])
 profiles = netflix.get_profiles()
 
-netflix.switch_profile('USER_ID')
+netflix.switch_profile(os.environ['NETFLIX-USER_ID'])
 with open('%s.json' % 'prof', 'w') as file:
         json.dump(netflix.get_viewing_activity(), file)
 
