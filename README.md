@@ -10,4 +10,4 @@ For retrieve the json of the history viewing activity:
 
 - Add in the environment variable: **NETFLIX-EMAIL**, **NETFLIX-PASSWORD** and **NETFLIX-USER_ID**
 
-- execute python3 netflix.py
+- Execute the script: python3 netflix.py
